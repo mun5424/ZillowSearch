@@ -1,16 +1,22 @@
 ﻿@model searchresults
 
 @{
-    ViewBag.Title = "SearchResults";
+    ViewBag.Title = "Search Results";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SearchResults</h2>
+<h2>Search Results</h2>
 
 <div>
-    <h4>searchresults</h4>
+    <h4>search results</h4>
     <hr />
     <dl class="dl-horizontal">
+           <dt>
+               @Html.DisplayNameFor(model => model.response)
+           </dt>
+            <dd>
+                @Html.DisplayFor(model => model.response)
+            </dd>
     </dl>
 </div>
 <p>
