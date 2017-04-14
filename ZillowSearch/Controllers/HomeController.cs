@@ -104,10 +104,9 @@ namespace ZillowSearch.Controllers
             sw.Write(resultXML);
             sw.Flush();
             stream.Position = 0;
-            XmlSerializer serializer = new XmlSerializer(typeof(ZillowSearch.Models.Searchresults));
-            var searchResults = (ZillowSearch.Models.Searchresults)serializer.Deserialize(stream);
+            XmlSerializer serializer = new XmlSerializer(typeof(searchresults));
+            var searchResults = (searchresults)serializer.Deserialize(stream);
             stream.Close();
-            
             return View(searchResults);
 
         }

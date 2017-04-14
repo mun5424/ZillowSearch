@@ -1,19 +1,19 @@
-﻿@model ZillowSearch.Models.Searchresults
+﻿@model searchresults
 
 @{
     ViewBag.Title = "Search Results";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{ string messageCode = @Model.Message.Code; }
+@{ byte messageCode = @Model.message.code; }
 
-    @if (messageCode != "0")
+    @if (messageCode == 0)
     {
         <div class="col-md-12">
-            <h4> Search Results </h4>
-            <span class="glyphicon glyphicon-home" aria-hidden="true"></span> @Model.Response.Results.Result.Address 
+            <h2> Search Results </h2>
             
             <button type="button" class="btn btn-default btn-lg">
                 <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                @Model.request.address @Model.request.citystatezip
             </button>
         </div>
     }
@@ -21,8 +21,8 @@
     {
         <div class="col-md-12">
             <h2> Error! </h2>
-            <p>An Error has occurred. Error Code: @Model.Message.Code  <br />
-               @Model.Message.errorSolution(@Model.Message.Code)
+            <p>An Error has occurred. Error Code: @Model.message.code - @Model.message.text  <br />
+               @Model.message.errorSolution(@Model.message.code)
             </p>
         </div>
     }

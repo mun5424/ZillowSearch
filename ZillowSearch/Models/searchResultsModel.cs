@@ -1,238 +1,966 @@
-﻿using System;
-using System.Xml.Serialization;
-using System.Collections.Generic;
-namespace ZillowSearch.Models
+﻿
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://www.zillow.com/static/xsd/SearchResults.xsd")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.zillow.com/static/xsd/SearchResults.xsd", IsNullable = false)]
+public partial class searchresults
 {
-    [XmlRoot(ElementName = "searchresults", Namespace = "http://www.zillow.com/static/xsd/SearchResults.xsd")]
-    public class Searchresults
+
+    private request requestField;
+
+    private message messageField;
+
+    private response responseField;
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+    public request request
     {
-        [XmlElement(ElementName = "request")]
-        public Request Request { get; set; }
-
-        [XmlElement(ElementName = "message")]
-        public Message Message { get; set; }
-
-        [XmlElement(ElementName = "response")]
-        public Response Response { get; set; }
-
-        [XmlAttribute(AttributeName = "schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string SchemaLocation { get; set; }
-        [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string Xsi { get; set; }
-        [XmlAttribute(AttributeName = "SearchResults", Namespace = "http://www.w3.org/2000/xmlns/")]
-        public string SearchResults { get; set; }
-    }
-
-    [XmlRoot(ElementName = "request")]
-    public class Request
-    {
-        [XmlElement(ElementName = "address")]
-        public string Address { get; set; }
-        [XmlElement(ElementName = "citystatezip")]
-        public string Citystatezip { get; set; }
-    }
-
-    [XmlRoot(ElementName = "message")]
-    public class Message
-    {
-        [XmlElement(ElementName = "text")]
-        public string Text { get; set; }
-        [XmlElement(ElementName = "code")]
-        public string Code { get; set; }
-
-        public string errorSolution(string errorCode)
+        get
         {
-            int errorNum = Convert.ToInt32(errorCode);
-            switch (errorNum)
-            {
-                case 1:
-                    return "Check to see if your url is properly formed: delimiters, character cases, etc.";
-                case 2:
-                    return "Check if you have provided a ZWSID in your API call. If yes, check if the ZWSID is keyed in correctly. If it still doesn't work, contact Zillow to get help on fixing your ZWSID.";
-                case 3:
-                    return "The Zillow Web Service is currently not available. Please come back later and try again.";
-                case 4:
-                    return "The Zillow Web Service is currently not available. Please come back later and try again.";
-                case 500:
-                    return "Check if the input address matches the format specified in the input parameters table. When inputting a city name, include the state too. A city name alone will not result in a valid address.";
-                case 501:
-                    return "Check if the input address matches the format specified in the input parameters table. When inputting a city name, include the state too. A city name alone will not result in a valid address.";
-                case 502:
-                    return "Sorry, the address you provided is not found in Zillow's property database.";
-                case 503:
-                    return "Please check to see if the city/state you entered is valid. If you provided a ZIP code, check to see if it is valid.";
-                case 504:
-                    return "The specified area is not covered by the Zillow property database. Click to see our <a href=\"https://www.zillow.com/zestimate/#acc\">property coverage tables</a>.";
-                case 505:
-                    return "Your request timed out. The server could be busy or unavailable. Try again later.";
-                case 506:
-                    return "If address is valid, try using abbreviations.";
-                case 507:
-                    return "Verify that the given address is correct.";
-                default:
-                    return "Request successfully processed";
-            }
+            return this.requestField;
+        }
+        set
+        {
+            this.requestField = value;
         }
     }
 
-    [XmlRoot(ElementName = "links")]
-    public class Links
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+    public message message
     {
-        [XmlElement(ElementName = "homedetails")]
-        public string Homedetails { get; set; }
-        [XmlElement(ElementName = "graphsanddata")]
-        public string Graphsanddata { get; set; }
-        [XmlElement(ElementName = "mapthishome")]
-        public string Mapthishome { get; set; }
-        [XmlElement(ElementName = "comparables")]
-        public string Comparables { get; set; }
-        [XmlElement(ElementName = "overview")]
-        public string Overview { get; set; }
-        [XmlElement(ElementName = "forSaleByOwner")]
-        public string ForSaleByOwner { get; set; }
-        [XmlElement(ElementName = "forSale")]
-        public string ForSale { get; set; }
+        get
+        {
+            return this.messageField;
+        }
+        set
+        {
+            this.messageField = value;
+        }
     }
 
-    [XmlRoot(ElementName = "address")]
-    public class Address
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+    public response response
     {
-        [XmlElement(ElementName = "street")]
-        public string Street { get; set; }
-        [XmlElement(ElementName = "zipcode")]
-        public string Zipcode { get; set; }
-        [XmlElement(ElementName = "city")]
-        public string City { get; set; }
-        [XmlElement(ElementName = "state")]
-        public string State { get; set; }
-        [XmlElement(ElementName = "latitude")]
-        public string Latitude { get; set; }
-        [XmlElement(ElementName = "longitude")]
-        public string Longitude { get; set; }
+        get
+        {
+            return this.responseField;
+        }
+        set
+        {
+            this.responseField = value;
+        }
     }
-
-    [XmlRoot(ElementName = "amount")]
-    public class Amount
-    {
-        [XmlAttribute(AttributeName = "currency")]
-        public string Currency { get; set; }
-        [XmlText]
-        public string Text { get; set; }
-    }
-
-    [XmlRoot(ElementName = "oneWeekChange")]
-    public class OneWeekChange
-    {
-        [XmlAttribute(AttributeName = "deprecated")]
-        public string Deprecated { get; set; }
-    }
-
-    [XmlRoot(ElementName = "valueChange")]
-    public class ValueChange
-    {
-        [XmlAttribute(AttributeName = "duration")]
-        public string Duration { get; set; }
-        [XmlAttribute(AttributeName = "currency")]
-        public string Currency { get; set; }
-        [XmlText]
-        public string Text { get; set; }
-    }
-
-    [XmlRoot(ElementName = "low")]
-    public class Low
-    {
-        [XmlAttribute(AttributeName = "currency")]
-        public string Currency { get; set; }
-        [XmlText]
-        public string Text { get; set; }
-    }
-
-    [XmlRoot(ElementName = "high")]
-    public class High
-    {
-        [XmlAttribute(AttributeName = "currency")]
-        public string Currency { get; set; }
-        [XmlText]
-        public string Text { get; set; }
-    }
-
-    [XmlRoot(ElementName = "valuationRange")]
-    public class ValuationRange
-    {
-        [XmlElement(ElementName = "low")]
-        public Low Low { get; set; }
-        [XmlElement(ElementName = "high")]
-        public High High { get; set; }
-    }
-
-    [XmlRoot(ElementName = "zestimate")]
-    public class Zestimate
-    {
-        [XmlElement(ElementName = "amount")]
-        public Amount Amount { get; set; }
-        [XmlElement(ElementName = "last-updated")]
-        public string Lastupdated { get; set; }
-        [XmlElement(ElementName = "oneWeekChange")]
-        public OneWeekChange OneWeekChange { get; set; }
-        [XmlElement(ElementName = "valueChange")]
-        public ValueChange ValueChange { get; set; }
-        [XmlElement(ElementName = "valuationRange")]
-        public ValuationRange ValuationRange { get; set; }
-        [XmlElement(ElementName = "percentile")]
-        public string Percentile { get; set; }
-    }
-
-    [XmlRoot(ElementName = "region")]
-    public class Region
-    {
-        [XmlElement(ElementName = "zindexValue")]
-        public string ZindexValue { get; set; }
-        [XmlElement(ElementName = "links")]
-        public Links Links { get; set; }
-        [XmlAttribute(AttributeName = "name")]
-        public string Name { get; set; }
-        [XmlAttribute(AttributeName = "id")]
-        public string Id { get; set; }
-        [XmlAttribute(AttributeName = "type")]
-        public string Type { get; set; }
-    }
-
-    [XmlRoot(ElementName = "localRealEstate")]
-    public class LocalRealEstate
-    {
-        [XmlElement(ElementName = "region")]
-        public Region Region { get; set; }
-    }
-
-    [XmlRoot(ElementName = "result")]
-    public class Result
-    {
-        [XmlElement(ElementName = "zpid")]
-        public string Zpid { get; set; }
-        [XmlElement(ElementName = "links")]
-        public Links Links { get; set; }
-        [XmlElement(ElementName = "address")]
-        public Address Address { get; set; }
-        [XmlElement(ElementName = "zestimate")]
-        public Zestimate Zestimate { get; set; }
-        [XmlElement(ElementName = "localRealEstate")]
-        public LocalRealEstate LocalRealEstate { get; set; }
-    }
-
-    [XmlRoot(ElementName = "results")]
-    public class Results
-    {
-        [XmlElement(ElementName = "result")]
-        public Result Result { get; set; }
-    }
-
-    [XmlRoot(ElementName = "response")]
-    public class Response
-    {
-        [XmlElement(ElementName = "results")]
-        public Results Results { get; set; }
-    }
-
-
-
 }
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+public partial class request
+{
+
+    private string addressField;
+
+    private string citystatezipField;
+
+    /// <remarks/>
+    public string address
+    {
+        get
+        {
+            return this.addressField;
+        }
+        set
+        {
+            this.addressField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string citystatezip
+    {
+        get
+        {
+            return this.citystatezipField;
+        }
+        set
+        {
+            this.citystatezipField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+public partial class message
+{
+
+    private string textField;
+
+    private byte codeField;
+
+    /// <remarks/>
+    public string text
+    {
+        get
+        {
+            return this.textField;
+        }
+        set
+        {
+            this.textField = value;
+        }
+    }
+
+    /// <remarks/>
+    public byte code
+    {
+        get
+        {
+            return this.codeField;
+        }
+        set
+        {
+            this.codeField = value;
+        }
+    }
+
+
+    public string errorSolution(byte errorCode)
+    {
+        int errorNum = (int)errorCode;
+        switch (errorNum)
+        {
+            case 1:
+                return "Check to see if your url is properly formed: delimiters, character cases, etc.";
+            case 2:
+                return "Check if you have provided a ZWSID in your API call. If yes, check if the ZWSID is keyed in correctly. If it still doesn't work, contact Zillow to get help on fixing your ZWSID.";
+            case 3:
+                return "The Zillow Web Service is currently not available. Please come back later and try again.";
+            case 4:
+                return "The Zillow Web Service is currently not available. Please come back later and try again.";
+            case 500:
+                return "Check if the input address matches the format specified in the input parameters table. When inputting a city name, include the state too. A city name alone will not result in a valid address.";
+            case 501:
+                return "Check if the input address matches the format specified in the input parameters table. When inputting a city name, include the state too. A city name alone will not result in a valid address.";
+            case 502:
+                return "Sorry, the address you provided is not found in Zillow's property database.";
+            case 503:
+                return "Please check to see if the city/state you entered is valid. If you provided a ZIP code, check to see if it is valid.";
+            case 504:
+                return "The specified area is not covered by the Zillow property database. Click to see our <a href=\"https://www.zillow.com/zestimate/#acc\">property coverage tables</a>.";
+            case 505:
+                return "Your request timed out. The server could be busy or unavailable. Try again later.";
+            case 506:
+                return "If address is valid, try using abbreviations.";
+            case 507:
+                return "Verify that the given address is correct.";
+            default:
+                return "Request successfully processed";
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+public partial class response
+{
+
+    private responseResults resultsField;
+
+    /// <remarks/>
+    public responseResults results
+    {
+        get
+        {
+            return this.resultsField;
+        }
+        set
+        {
+            this.resultsField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResults
+{
+
+    private responseResultsResult resultField;
+
+    /// <remarks/>
+    public responseResultsResult result
+    {
+        get
+        {
+            return this.resultField;
+        }
+        set
+        {
+            this.resultField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResult
+{
+
+    private uint zpidField;
+
+    private responseResultsResultLinks linksField;
+
+    private responseResultsResultAddress addressField;
+
+    private responseResultsResultZestimate zestimateField;
+
+    private responseResultsResultLocalRealEstate localRealEstateField;
+
+    /// <remarks/>
+    public uint zpid
+    {
+        get
+        {
+            return this.zpidField;
+        }
+        set
+        {
+            this.zpidField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultLinks links
+    {
+        get
+        {
+            return this.linksField;
+        }
+        set
+        {
+            this.linksField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultAddress address
+    {
+        get
+        {
+            return this.addressField;
+        }
+        set
+        {
+            this.addressField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultZestimate zestimate
+    {
+        get
+        {
+            return this.zestimateField;
+        }
+        set
+        {
+            this.zestimateField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultLocalRealEstate localRealEstate
+    {
+        get
+        {
+            return this.localRealEstateField;
+        }
+        set
+        {
+            this.localRealEstateField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultLinks
+{
+
+    private string homedetailsField;
+
+    private string graphsanddataField;
+
+    private string mapthishomeField;
+
+    private string comparablesField;
+
+    /// <remarks/>
+    public string homedetails
+    {
+        get
+        {
+            return this.homedetailsField;
+        }
+        set
+        {
+            this.homedetailsField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string graphsanddata
+    {
+        get
+        {
+            return this.graphsanddataField;
+        }
+        set
+        {
+            this.graphsanddataField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string mapthishome
+    {
+        get
+        {
+            return this.mapthishomeField;
+        }
+        set
+        {
+            this.mapthishomeField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string comparables
+    {
+        get
+        {
+            return this.comparablesField;
+        }
+        set
+        {
+            this.comparablesField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultAddress
+{
+
+    private string streetField;
+
+    private uint zipcodeField;
+
+    private string cityField;
+
+    private string stateField;
+
+    private decimal latitudeField;
+
+    private decimal longitudeField;
+
+    /// <remarks/>
+    public string street
+    {
+        get
+        {
+            return this.streetField;
+        }
+        set
+        {
+            this.streetField = value;
+        }
+    }
+
+    /// <remarks/>
+    public uint zipcode
+    {
+        get
+        {
+            return this.zipcodeField;
+        }
+        set
+        {
+            this.zipcodeField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string city
+    {
+        get
+        {
+            return this.cityField;
+        }
+        set
+        {
+            this.cityField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string state
+    {
+        get
+        {
+            return this.stateField;
+        }
+        set
+        {
+            this.stateField = value;
+        }
+    }
+
+    /// <remarks/>
+    public decimal latitude
+    {
+        get
+        {
+            return this.latitudeField;
+        }
+        set
+        {
+            this.latitudeField = value;
+        }
+    }
+
+    /// <remarks/>
+    public decimal longitude
+    {
+        get
+        {
+            return this.longitudeField;
+        }
+        set
+        {
+            this.longitudeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultZestimate
+{
+
+    private responseResultsResultZestimateAmount amountField;
+
+    private string lastupdatedField;
+
+    private responseResultsResultZestimateOneWeekChange oneWeekChangeField;
+
+    private responseResultsResultZestimateValueChange valueChangeField;
+
+    private responseResultsResultZestimateValuationRange valuationRangeField;
+
+    private byte percentileField;
+
+    /// <remarks/>
+    public responseResultsResultZestimateAmount amount
+    {
+        get
+        {
+            return this.amountField;
+        }
+        set
+        {
+            this.amountField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("last-updated")]
+    public string lastupdated
+    {
+        get
+        {
+            return this.lastupdatedField;
+        }
+        set
+        {
+            this.lastupdatedField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultZestimateOneWeekChange oneWeekChange
+    {
+        get
+        {
+            return this.oneWeekChangeField;
+        }
+        set
+        {
+            this.oneWeekChangeField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultZestimateValueChange valueChange
+    {
+        get
+        {
+            return this.valueChangeField;
+        }
+        set
+        {
+            this.valueChangeField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultZestimateValuationRange valuationRange
+    {
+        get
+        {
+            return this.valuationRangeField;
+        }
+        set
+        {
+            this.valuationRangeField = value;
+        }
+    }
+
+    /// <remarks/>
+    public byte percentile
+    {
+        get
+        {
+            return this.percentileField;
+        }
+        set
+        {
+            this.percentileField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultZestimateAmount
+{
+
+    private string currencyField;
+
+    private uint valueField;
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string currency
+    {
+        get
+        {
+            return this.currencyField;
+        }
+        set
+        {
+            this.currencyField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public uint Value
+    {
+        get
+        {
+            return this.valueField;
+        }
+        set
+        {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultZestimateOneWeekChange
+{
+
+    private bool deprecatedField;
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public bool deprecated
+    {
+        get
+        {
+            return this.deprecatedField;
+        }
+        set
+        {
+            this.deprecatedField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultZestimateValueChange
+{
+
+    private byte durationField;
+
+    private string currencyField;
+
+    private ushort valueField;
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public byte duration
+    {
+        get
+        {
+            return this.durationField;
+        }
+        set
+        {
+            this.durationField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string currency
+    {
+        get
+        {
+            return this.currencyField;
+        }
+        set
+        {
+            this.currencyField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public ushort Value
+    {
+        get
+        {
+            return this.valueField;
+        }
+        set
+        {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultZestimateValuationRange
+{
+
+    private responseResultsResultZestimateValuationRangeLow lowField;
+
+    private responseResultsResultZestimateValuationRangeHigh highField;
+
+    /// <remarks/>
+    public responseResultsResultZestimateValuationRangeLow low
+    {
+        get
+        {
+            return this.lowField;
+        }
+        set
+        {
+            this.lowField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultZestimateValuationRangeHigh high
+    {
+        get
+        {
+            return this.highField;
+        }
+        set
+        {
+            this.highField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultZestimateValuationRangeLow
+{
+
+    private string currencyField;
+
+    private uint valueField;
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string currency
+    {
+        get
+        {
+            return this.currencyField;
+        }
+        set
+        {
+            this.currencyField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public uint Value
+    {
+        get
+        {
+            return this.valueField;
+        }
+        set
+        {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultZestimateValuationRangeHigh
+{
+
+    private string currencyField;
+
+    private uint valueField;
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string currency
+    {
+        get
+        {
+            return this.currencyField;
+        }
+        set
+        {
+            this.currencyField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTextAttribute()]
+    public uint Value
+    {
+        get
+        {
+            return this.valueField;
+        }
+        set
+        {
+            this.valueField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultLocalRealEstate
+{
+
+    private responseResultsResultLocalRealEstateRegion regionField;
+
+    /// <remarks/>
+    public responseResultsResultLocalRealEstateRegion region
+    {
+        get
+        {
+            return this.regionField;
+        }
+        set
+        {
+            this.regionField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultLocalRealEstateRegion
+{
+
+    private string zindexValueField;
+
+    private responseResultsResultLocalRealEstateRegionLinks linksField;
+
+    private string nameField;
+
+    private ushort idField;
+
+    private string typeField;
+
+    /// <remarks/>
+    public string zindexValue
+    {
+        get
+        {
+            return this.zindexValueField;
+        }
+        set
+        {
+            this.zindexValueField = value;
+        }
+    }
+
+    /// <remarks/>
+    public responseResultsResultLocalRealEstateRegionLinks links
+    {
+        get
+        {
+            return this.linksField;
+        }
+        set
+        {
+            this.linksField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string name
+    {
+        get
+        {
+            return this.nameField;
+        }
+        set
+        {
+            this.nameField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public ushort id
+    {
+        get
+        {
+            return this.idField;
+        }
+        set
+        {
+            this.idField = value;
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string type
+    {
+        get
+        {
+            return this.typeField;
+        }
+        set
+        {
+            this.typeField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+public partial class responseResultsResultLocalRealEstateRegionLinks
+{
+
+    private string overviewField;
+
+    private string forSaleByOwnerField;
+
+    private string forSaleField;
+
+    /// <remarks/>
+    public string overview
+    {
+        get
+        {
+            return this.overviewField;
+        }
+        set
+        {
+            this.overviewField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string forSaleByOwner
+    {
+        get
+        {
+            return this.forSaleByOwnerField;
+        }
+        set
+        {
+            this.forSaleByOwnerField = value;
+        }
+    }
+
+    /// <remarks/>
+    public string forSale
+    {
+        get
+        {
+            return this.forSaleField;
+        }
+        set
+        {
+            this.forSaleField = value;
+        }
+    }
+}
+
