@@ -39,7 +39,7 @@ namespace ZillowSearch.Controllers
         {
             var tokens = address.Split(' ');
             if (tokens.Length < 6)
-                return "invalid address format.";
+                return "Invalid Address Format.";
 
             string streetName = tokens[0] + " " + tokens[1] + " " + tokens[2];
             if (!checkRegex(streetName, regexStreetName))
@@ -47,17 +47,17 @@ namespace ZillowSearch.Controllers
 
             string city = tokens[3];
             if (!checkRegex(city, regexCity))
-                return "Invalid City.";
+                return "Invalid City Name.";
 
             string state = tokens[4];
             if (!checkRegex(state, regexStateShort) && !checkRegex(state, regexStateFull))
-                return "Invalid State.";
+                return "Invalid State. Please type a valid State name or an abbreviation. ";
 
             string ZIP = tokens[5];
             if (!checkRegex(ZIP, regexZIP))
-                return "Invalid ZIP Code.";
+                return "Invalid ZIP Code. The ZIP Code must be 5 digits.";
 
-            return ""; 
+            return "success"; 
         }
 
         public bool checkRegex(string s, string regexStr)
@@ -72,14 +72,31 @@ namespace ZillowSearch.Controllers
             return View();
         }
 
+
+        private void AddAlert(string alertStyle, string message, bool dismissable)
+        {
+            var alerts = TempData.ContainsKey(Alert.TempDataKey)
+                ? (List<Alert>)TempData[Alert.TempDataKey]
+                : new List<Alert>();
+
+            alerts.Add(new Alert
+            {
+                AlertStyle = alertStyle,
+                Message = message,
+                Dismissable = dismissable
+            });
+
+            TempData[Alert.TempDataKey] = alerts;
+        }
+
         public ActionResult SearchResults()
         {
-
             string address = Request.Params["SearchString"];
-
-            if (address == null)
+            string errorMessage = checkFullAddress(address);
+            if (errorMessage != "success")
             {
-                return View(); 
+                AddAlert(AlertStyles.Danger, errorMessage, false);
+                return RedirectToAction("Index");
             }
 
             var tokens = address.Split(' ');

@@ -639,7 +639,7 @@ public partial class responseResultsResultZestimateValueChange
 
     private string currencyField;
 
-    private ushort valueField;
+    private sbyte valueField;
 
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -671,7 +671,7 @@ public partial class responseResultsResultZestimateValueChange
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
-    public ushort Value
+    public sbyte Value
     {
         get
         {
