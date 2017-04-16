@@ -35,6 +35,7 @@
         // Add view to AppViewModel.Views enum (for example, app.Views.Home).
         self.Views[options.name] = viewItem;
 
+        /* does not need a login page for the app
         // Add binding member to AppViewModel (for example, app.home);
         self[options.bindingMemberName] = ko.computed(function () {
             if (!dataModel.getAccessToken()) {
@@ -54,6 +55,7 @@
 
             return self.Views[options.name];
         });
+        */
 
         if (typeof (options.navigatorFactory) !== "undefined") {
             navigator = options.navigatorFactory(self, dataModel);

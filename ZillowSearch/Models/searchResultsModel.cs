@@ -105,7 +105,7 @@ public partial class message
 
     private string textField;
 
-    private byte codeField;
+    private int codeField;
 
     /// <remarks/>
     public string text
@@ -121,7 +121,7 @@ public partial class message
     }
 
     /// <remarks/>
-    public byte code
+    public int code
     {
         get
         {
@@ -134,7 +134,7 @@ public partial class message
     }
 
 
-    public string errorSolution(byte errorCode)
+    public string errorSolution(int errorCode)
     {
         int errorNum = (int)errorCode;
         switch (errorNum)
@@ -482,7 +482,7 @@ public partial class responseResultsResultZestimate
 
     private responseResultsResultZestimateValuationRange valuationRangeField;
 
-    private byte percentileField;
+    private int percentileField;
 
     /// <remarks/>
     public responseResultsResultZestimateAmount amount
@@ -551,7 +551,7 @@ public partial class responseResultsResultZestimate
     }
 
     /// <remarks/>
-    public byte percentile
+    public int percentile
     {
         get
         {
@@ -635,15 +635,15 @@ public partial class responseResultsResultZestimateOneWeekChange
 public partial class responseResultsResultZestimateValueChange
 {
 
-    private byte durationField;
+    private int durationField;
 
     private string currencyField;
 
-    private sbyte valueField;
+    private int valueField;
 
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte duration
+    public int duration
     {
         get
         {
@@ -671,7 +671,7 @@ public partial class responseResultsResultZestimateValueChange
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTextAttribute()]
-    public sbyte Value
+    public int Value
     {
         get
         {

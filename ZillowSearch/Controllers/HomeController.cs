@@ -16,7 +16,7 @@ namespace ZillowSearch.Controllers
 
 
 
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
 
@@ -24,7 +24,7 @@ namespace ZillowSearch.Controllers
 
         //regex expressions to check address format 
         private const string regexZIP = @"\b\d{5}(?:-\d{4})?\b";
-        private const string regexStreetName = @"\d+[ ](?:[A-Za-z0-9.-]+[ ]?)+(?:Avenue|Lane|Road|Boulevard|Drive|Street|Ave|Dr|Rd|Blvd|Ln|St)\.?";
+        private const string regexStreetName = @"\d+[ ](?:[A-Za-z0-9.-]+[ ]?)+(?:Avenue|Lane|Road|Boulevard|Circle|Drive|Street|Ave|Dr|Rd|Blvd|Ln|St|Cir)\.?";
         private const string regexCity = @"(?:[A-Z][a-z.-]+[ ]?)+";
         private const string regexStateFull = "Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|" +
             "Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|" +
@@ -34,29 +34,30 @@ namespace ZillowSearch.Controllers
         private const string regexStateShort = "AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT" +
             "|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY";
 
+        private string streetName, ZIP, city, state; 
 
-        private string checkFullAddress(string address)
+
+        private string checkFullAddress()
         {
-            var tokens = address.Split(' ');
-            if (tokens.Length < 6)
-                return "Invalid Address Format.";
+            streetName = Request.Params["SearchStreet"];
+            ZIP = Request.Params["SearchZIP"];
+            city = Request.Params["SearchCity"];
+            state = Request.Params["SearchState"];
 
-            string streetName = tokens[0] + " " + tokens[1] + " " + tokens[2];
-            if (!checkRegex(streetName, regexStreetName))
-                return "Invalid Street Name.";
-
-            string city = tokens[3];
-            if (!checkRegex(city, regexCity))
-                return "Invalid City Name.";
-
-            string state = tokens[4];
-            if (!checkRegex(state, regexStateShort) && !checkRegex(state, regexStateFull))
-                return "Invalid State. Please type a valid State name or an abbreviation. ";
-
-            string ZIP = tokens[5];
             if (!checkRegex(ZIP, regexZIP))
                 return "Invalid ZIP Code. The ZIP Code must be 5 digits.";
 
+            if (!checkRegex(state, regexStateShort) && !checkRegex(state, regexStateFull))
+                return "Invalid State. Please type a capitalized, valid State name or an abbreviation. ";
+
+            if (!checkRegex(city, regexCity))
+                return "Invalid City Name. Please type a capitalized, valid city name.";
+
+            /* NOTE: There are too many street name variations to be checked with a Regular Expression. 
+            if (!checkRegex(streetName, regexStreetName))
+                return "Invalid Street Name.";
+                */
+            
             return "success"; 
         }
 
@@ -91,19 +92,13 @@ namespace ZillowSearch.Controllers
 
         public ActionResult SearchResults()
         {
-            string address = Request.Params["SearchString"];
-            string errorMessage = checkFullAddress(address);
+            string errorMessage = checkFullAddress();
             if (errorMessage != "success")
             {
                 AddAlert(AlertStyles.Danger, errorMessage, false);
                 return RedirectToAction("Index");
             }
-
-            var tokens = address.Split(' ');
-            string streetName = tokens[0] + " " + tokens[1] + " " + tokens[2];
-            string city = tokens[3];
-            string state = tokens[4];
-            string ZIP = tokens[5];
+            
 
             streetName = WebUtility.UrlEncode(streetName);
             string cityStateZIP = WebUtility.UrlEncode(city + " " + state + " " + ZIP);

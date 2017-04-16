@@ -20,7 +20,7 @@
 input,
 select,
 textarea {
-    max-width: 400px;
+   
 }
 
 /* Set padding to display errors that occur during databinding */
@@ -64,11 +64,14 @@ textarea {
 .horizontal-center {
     min-width: 100%;
     min-width: 100vh;
-    display: flex;
     align-items: center;
 }
 
 
 .col-center{
     text-align: center; 
+}
+
+.form-inline .form-control {
+    width: 100%; 
 }
